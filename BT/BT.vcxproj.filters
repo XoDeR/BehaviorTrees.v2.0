@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Src">
+      <UniqueIdentifier>{0cc909fe-5679-414c-8956-41d190582e03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Composite">
+      <UniqueIdentifier>{0a5f7282-c1f9-44cd-97b2-61ea73418c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Decorator">
+      <UniqueIdentifier>{deb76af6-e2de-4b74-ab1f-eb1e85fc93b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Core">
+      <UniqueIdentifier>{8cf4dad7-9378-44d1-abe0-b11e5ad545a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Action">
+      <UniqueIdentifier>{f4cd7837-5d33-4a8d-ab51-453e7ca66ee8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Model">
+      <UniqueIdentifier>{b285afa3-18fe-40fe-bb9f-d7105d54bd73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\PugiXml">
+      <UniqueIdentifier>{5c1c4d87-f06f-4d52-85ec-5e5207a2dec8}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Src\Core\Action.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\BaseNode.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\BehaviorTree.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\Composite.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\Condition.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\Decorator.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\Tick.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Decorator\Inverter.h">
+      <Filter>Src\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Decorator\Limiter.h">
+      <Filter>Src\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Decorator\MaxTime.h">
+      <Filter>Src\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Decorator\Repeater.h">
+      <Filter>Src\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Decorator\RepeatUntilFailure.h">
+      <Filter>Src\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Decorator\RepeatUntilSuccess.h">
+      <Filter>Src\Decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Composite\Selector.h">
+      <Filter>Src\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Composite\SelectorStateful.h">
+      <Filter>Src\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Composite\Sequence.h">
+      <Filter>Src\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Composite\SequenceStateful.h">
+      <Filter>Src\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\Failer.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\Runner.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\Succeeder.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\Wait.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\ActionAtomic.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\ActionTimed.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\ActionAtomicData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\AiBehaviorData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\AiBehaviorModel.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\SelectorStatefulData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\SequenceStatefulData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\RepeaterData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\RepeatUntilFailureData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\ActionTimedData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Action\FailerWhenEvent.h">
+      <Filter>Src\Action</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\NodeId.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\NodeManager.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\NodeGraph.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\BaseData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\FailerData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\FailerWhenEventData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\InverterData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\LimiterData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\MaxTimeData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\RepeatUntilSuccessData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\RunnerData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\SelectorData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\SequenceData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\SucceederData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\UnitType.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\WaitData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\ConditionData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\NodeType.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\Util.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\ActionEventType.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Composite\SelectorRandom.h">
+      <Filter>Src\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\Random.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\PugiXml\foreach.hpp">
+      <Filter>Src\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\PugiXml\pugiconfig.hpp">
+      <Filter>Src\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\PugiXml\pugixml.hpp">
+      <Filter>Src\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Model\SelectorRandomData.h">
+      <Filter>Src\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\ActionId.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\ActionManager.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Core\BtCommon.h">
+      <Filter>Src\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Src\Main.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\Tick.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Composite\Selector.cpp">
+      <Filter>Src\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Composite\SelectorStateful.cpp">
+      <Filter>Src\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Composite\Sequence.cpp">
+      <Filter>Src\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Composite\SequenceStateful.cpp">
+      <Filter>Src\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Decorator\Inverter.cpp">
+      <Filter>Src\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Decorator\Limiter.cpp">
+      <Filter>Src\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Decorator\MaxTime.cpp">
+      <Filter>Src\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Decorator\Repeater.cpp">
+      <Filter>Src\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Decorator\RepeatUntilFailure.cpp">
+      <Filter>Src\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Decorator\RepeatUntilSuccess.cpp">
+      <Filter>Src\Decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\BehaviorTree.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\BaseNode.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\Condition.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Action\ActionAtomic.cpp">
+      <Filter>Src\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Action\ActionTimed.cpp">
+      <Filter>Src\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Model\AiBehaviorModel.cpp">
+      <Filter>Src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\Composite.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Model\NodeManager.cpp">
+      <Filter>Src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Model\NodeGraph.cpp">
+      <Filter>Src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Action\Wait.cpp">
+      <Filter>Src\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Model\Util.cpp">
+      <Filter>Src\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Action\FailerWhenEvent.cpp">
+      <Filter>Src\Action</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Composite\SelectorRandom.cpp">
+      <Filter>Src\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\Random.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\PugiXml\pugixml.cpp">
+      <Filter>Src\PugiXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Core\ActionManager.cpp">
+      <Filter>Src\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

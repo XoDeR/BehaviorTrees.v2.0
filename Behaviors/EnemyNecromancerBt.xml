@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Behavior name="EnemyNecromancer">
+  <Repeater name="">
+    <SelectorStateful name="">
+      <ActionTimed name="rechargeSpawnNecromancer" />
+      <SequenceStateful name="">
+        <ConditionCommon name="canSpawn" />
+        <ActionAtomic name="stopUnit" />
+        <ActionTimed name="spawnAnimNecromancer" />
+        <ActionAtomic name="spawnUnitsNecromancer" />
+        <ActionAtomic name="continueMoving" />
+      </SequenceStateful>
+    </SelectorStateful>
+  </Repeater>
+</Behavior>

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{43DF0C28-AB4B-45A2-A339-4B68EF9C5FA0}</ProjectGuid>
+    <RootNamespace>BT</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../Src;../Src/Core;../Src/Action;../Src/Composite;../Src/Decorator;../Src/Model;../Src/PugiXml;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Src\Action\ActionAtomic.h" />
+    <ClInclude Include="..\Src\Action\ActionTimed.h" />
+    <ClInclude Include="..\Src\Action\Failer.h" />
+    <ClInclude Include="..\Src\Action\FailerWhenEvent.h" />
+    <ClInclude Include="..\Src\Action\Runner.h" />
+    <ClInclude Include="..\Src\Action\Succeeder.h" />
+    <ClInclude Include="..\Src\Action\Wait.h" />
+    <ClInclude Include="..\Src\Composite\Selector.h" />
+    <ClInclude Include="..\Src\Composite\SelectorRandom.h" />
+    <ClInclude Include="..\Src\Composite\SelectorStateful.h" />
+    <ClInclude Include="..\Src\Composite\Sequence.h" />
+    <ClInclude Include="..\Src\Composite\SequenceStateful.h" />
+    <ClInclude Include="..\Src\Core\Action.h" />
+    <ClInclude Include="..\Src\Core\ActionEventType.h" />
+    <ClInclude Include="..\Src\Core\ActionId.h" />
+    <ClInclude Include="..\Src\Core\ActionManager.h" />
+    <ClInclude Include="..\Src\Core\BaseNode.h" />
+    <ClInclude Include="..\Src\Core\BehaviorTree.h" />
+    <ClInclude Include="..\Src\Core\BtCommon.h" />
+    <ClInclude Include="..\Src\Core\Composite.h" />
+    <ClInclude Include="..\Src\Core\Condition.h" />
+    <ClInclude Include="..\Src\Core\Decorator.h" />
+    <ClInclude Include="..\Src\Core\Random.h" />
+    <ClInclude Include="..\Src\Core\Tick.h" />
+    <ClInclude Include="..\Src\Decorator\Inverter.h" />
+    <ClInclude Include="..\Src\Decorator\Limiter.h" />
+    <ClInclude Include="..\Src\Decorator\MaxTime.h" />
+    <ClInclude Include="..\Src\Decorator\Repeater.h" />
+    <ClInclude Include="..\Src\Decorator\RepeatUntilFailure.h" />
+    <ClInclude Include="..\Src\Decorator\RepeatUntilSuccess.h" />
+    <ClInclude Include="..\Src\Model\ActionAtomicData.h" />
+    <ClInclude Include="..\Src\Model\BaseData.h" />
+    <ClInclude Include="..\Src\Model\ConditionData.h" />
+    <ClInclude Include="..\Src\Model\FailerData.h" />
+    <ClInclude Include="..\Src\Model\FailerWhenEventData.h" />
+    <ClInclude Include="..\Src\Model\InverterData.h" />
+    <ClInclude Include="..\Src\Model\LimiterData.h" />
+    <ClInclude Include="..\Src\Model\MaxTimeData.h" />
+    <ClInclude Include="..\Src\Model\NodeGraph.h" />
+    <ClInclude Include="..\Src\Model\NodeId.h" />
+    <ClInclude Include="..\Src\Model\NodeManager.h" />
+    <ClInclude Include="..\Src\Model\ActionTimedData.h" />
+    <ClInclude Include="..\Src\Model\AiBehaviorData.h" />
+    <ClInclude Include="..\Src\Model\AiBehaviorModel.h" />
+    <ClInclude Include="..\Src\Model\NodeType.h" />
+    <ClInclude Include="..\Src\Model\RepeaterData.h" />
+    <ClInclude Include="..\Src\Model\RepeatUntilFailureData.h" />
+    <ClInclude Include="..\Src\Model\RepeatUntilSuccessData.h" />
+    <ClInclude Include="..\Src\Model\RunnerData.h" />
+    <ClInclude Include="..\Src\Model\SelectorData.h" />
+    <ClInclude Include="..\Src\Model\SelectorRandomData.h" />
+    <ClInclude Include="..\Src\Model\SelectorStatefulData.h" />
+    <ClInclude Include="..\Src\Model\SequenceData.h" />
+    <ClInclude Include="..\Src\Model\SequenceStatefulData.h" />
+    <ClInclude Include="..\Src\Model\SucceederData.h" />
+    <ClInclude Include="..\Src\Model\UnitType.h" />
+    <ClInclude Include="..\Src\Model\Util.h" />
+    <ClInclude Include="..\Src\Model\WaitData.h" />
+    <ClInclude Include="..\Src\PugiXml\foreach.hpp" />
+    <ClInclude Include="..\Src\PugiXml\pugiconfig.hpp" />
+    <ClInclude Include="..\Src\PugiXml\pugixml.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Src\Action\ActionAtomic.cpp" />
+    <ClCompile Include="..\Src\Action\ActionTimed.cpp" />
+    <ClCompile Include="..\Src\Action\FailerWhenEvent.cpp" />
+    <ClCompile Include="..\Src\Action\Wait.cpp" />
+    <ClCompile Include="..\Src\Composite\Selector.cpp" />
+    <ClCompile Include="..\Src\Composite\SelectorRandom.cpp" />
+    <ClCompile Include="..\Src\Composite\SelectorStateful.cpp" />
+    <ClCompile Include="..\Src\Composite\Sequence.cpp" />
+    <ClCompile Include="..\Src\Composite\SequenceStateful.cpp" />
+    <ClCompile Include="..\Src\Core\ActionManager.cpp" />
+    <ClCompile Include="..\Src\Core\BaseNode.cpp" />
+    <ClCompile Include="..\Src\Core\BehaviorTree.cpp" />
+    <ClCompile Include="..\Src\Core\Composite.cpp" />
+    <ClCompile Include="..\Src\Core\Condition.cpp" />
+    <ClCompile Include="..\Src\Core\Random.cpp" />
+    <ClCompile Include="..\Src\Core\Tick.cpp" />
+    <ClCompile Include="..\Src\Decorator\Inverter.cpp" />
+    <ClCompile Include="..\Src\Decorator\Limiter.cpp" />
+    <ClCompile Include="..\Src\Decorator\MaxTime.cpp" />
+    <ClCompile Include="..\Src\Decorator\Repeater.cpp" />
+    <ClCompile Include="..\Src\Decorator\RepeatUntilFailure.cpp" />
+    <ClCompile Include="..\Src\Decorator\RepeatUntilSuccess.cpp" />
+    <ClCompile Include="..\Src\Main.cpp" />
+    <ClCompile Include="..\Src\Model\NodeGraph.cpp" />
+    <ClCompile Include="..\Src\Model\NodeManager.cpp" />
+    <ClCompile Include="..\Src\Model\AiBehaviorModel.cpp" />
+    <ClCompile Include="..\Src\Model\Util.cpp" />
+    <ClCompile Include="..\Src\PugiXml\pugixml.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
