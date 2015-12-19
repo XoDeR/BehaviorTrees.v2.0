@@ -1,13 +1,14 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "BaseNode.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
 
 namespace Bt
 {
-
-	BaseNode::BaseNode(Category category) : category(category)
+	// public, interface
+	BaseNode::BaseNode(Category category) 
+		: category(category)
 	{
-		//id = getNextId()
 	}
 
 	Status BaseNode::execute(Tick& tick)
@@ -22,6 +23,7 @@ namespace Bt
 
 			if (status != Status::Running)
 			{
+				// action finished
 				closeInner(tick);
 				exitInner(tick);
 				return status;
@@ -29,6 +31,18 @@ namespace Bt
 		}
 	}
 
+	void BaseNode::interruptNode(Tick& tick)
+	{
+		interruptInner(tick);
+		exitInner(tick);
+	}
+
+	ActionId BaseNode::getActionId()
+	{
+		return actionId;
+	}
+
+	// private final
 	void BaseNode::enterInner(Tick& tick)
 	{
 		tick.enterNode(*this);
@@ -48,6 +62,14 @@ namespace Bt
 		return this->process(tick);
 	}
 
+	void BaseNode::interruptInner(Tick& tick)
+	{
+		// virtual function call
+		tick.closeNode(*this);
+		tick.tree.setIsOpen(actionId, false);
+		this->interrupt(tick);
+	}
+
 	void BaseNode::closeInner(Tick& tick)
 	{
 		tick.closeNode(*this);
@@ -60,10 +82,4 @@ namespace Bt
 		tick.exitNode(*this);
 		this->exit(tick);
 	}
-
-	ActionId BaseNode::getActionId()
-	{
-		return actionId;
-	}
-
 } // namespace Bt

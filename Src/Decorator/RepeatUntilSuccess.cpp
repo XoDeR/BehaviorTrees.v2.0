@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "RepeatUntilSuccess.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -8,6 +9,12 @@ namespace Bt
 	RepeatUntilSuccess::RepeatUntilSuccess(ActionId child, int32_t maxLoop /*= -1*/)
 		: Decorator(child)
 		, maxLoop(maxLoop)
+	{
+
+	}
+
+	RepeatUntilSuccess::RepeatUntilSuccess(int32_t maxLoop /*= -1*/)
+		: maxLoop(maxLoop)
 	{
 
 	}

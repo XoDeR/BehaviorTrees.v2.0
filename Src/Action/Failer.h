@@ -6,6 +6,7 @@ namespace Bt
 
 	class Failer : public Action
 	{
+	public:
 		virtual ~Failer()
 		{}
 

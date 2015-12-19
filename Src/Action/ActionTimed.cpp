@@ -1,4 +1,7 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "ActionTimed.h"
+#include "Tick.h"
+#include "BehaviorTree.h"
 
 namespace Bt
 {
@@ -9,30 +12,8 @@ namespace Bt
 
 	}
 
-	Status ActionTimed::process()
+	ActionTimed::ActionTimed()
 	{
-		Status result = Status::Failure;
-
-		// not started
-		if (isStarted == false && isFinished == false)
-		{
-			// start
-			startFunc(); // invoke external function
-			isStarted = true;
-		}
-		// started but not finished == Running
-		else if (isStarted == true && isFinished == false)
-		{
-			result = Status::Running;
-		}
-		// started and finished successfully
-		else if (isStarted == true && isFinished == true)
-		{
-			result = Status::Success;
-			reset();
-		}
-
-		return result;
 	}
 
 	void ActionTimed::onFinished()
@@ -41,20 +22,46 @@ namespace Bt
 		isFinished = true;
 	}
 
-	void ActionTimed::reset()
+	void ActionTimed::setStartFunction(std::function<void()>&& startFunc)
 	{
-		isStarted = false;
-		isFinished = false;
+		this->startFunc = std::move(startFunc);
 	}
 
-	void ActionTimed::interrupt()
+	void ActionTimed::setInterruptFunction(std::function<void()>&& interruptFunc)
 	{
-		// if isRunning
-		if (isStarted == true && isFinished == false)
+		this->interruptFunc = std::move(interruptFunc);
+	}
+
+	std::function<void()>* ActionTimed::getOnFinishedCallback()
+	{
+		return &onFinishedCallbackFunc;
+	}
+
+	void ActionTimed::open(Tick& tick)
+	{
+		isFinished = false;
+		// start
+		startFunc(); // invoke external function
+	}
+
+	Status ActionTimed::process(Tick& tick)
+	{
+		Status result = Status::Running;
+		if (isFinished == true)
 		{
-			interruptFunc();
-			reset();
+			result = Status::Success;
 		}
+		return result;
+	}
+
+	void ActionTimed::interrupt(Tick& tick)
+	{
+		interruptFunc(); // invoke external function
+	}
+
+	void ActionTimed::exit(Tick& tick)
+	{
+		isFinished = false;
 	}
 
 } // namespace Bt

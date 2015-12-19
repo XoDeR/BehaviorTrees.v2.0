@@ -3,9 +3,9 @@
 
 namespace Bt
 {
-
 	class Succeeder : public Action
 	{
+	public:
 		virtual ~Succeeder()
 		{}
 

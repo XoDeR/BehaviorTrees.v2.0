@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "Limiter.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -8,6 +9,12 @@ namespace Bt
 	Limiter::Limiter(ActionId child, int32_t maxLoop)
 		: Decorator(child)
 		, maxLoop(maxLoop)
+	{
+
+	}
+
+	Limiter::Limiter(int32_t maxLoop)
+		: maxLoop(maxLoop)
 	{
 
 	}

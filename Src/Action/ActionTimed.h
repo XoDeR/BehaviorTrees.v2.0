@@ -12,19 +12,24 @@ namespace Bt
 	class ActionTimed : public Action
 	{
 	public:
+		ActionTimed();
 		ActionTimed(std::function<void()>&& startFunc, std::function<void()>&& interruptFunc);
 		virtual ~ActionTimed()
 		{}
-		Status process();
-		void interrupt();
+		void setStartFunction(std::function<void()>&& startFunc);
+		void setInterruptFunction(std::function<void()>&& interruptFunc);
 		void onFinished();
-		void reset();
+		
 		std::function<void()> startFunc;
 		std::function<void()> interruptFunc;
 		std::function<void()> onFinishedCallbackFunc;
 		std::function<void()>* getOnFinishedCallback();
-		bool isStarted = false;
 		bool isFinished = false;
+	protected:
+		void open(Tick& tick) override;
+		Status process(Tick& tick) override;
+		void interrupt(Tick& tick) override;
+		void exit(Tick& tick) override;
 	};
 
 } // namespace Bt

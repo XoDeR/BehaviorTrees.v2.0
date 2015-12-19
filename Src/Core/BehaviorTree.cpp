@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "BehaviorTree.h"
 #include "BaseNode.h"
 #include "Tick.h"
@@ -11,7 +12,7 @@ namespace Bt
 
 	}
 
-	void BehaviorTree::process(float dt)
+	void BehaviorTree::processBehaviorTree(float dt)
 	{
 		Tick tick(*this, dt);
 
@@ -28,15 +29,31 @@ namespace Bt
 		auto it = std::set_difference(lastOpenNodeList.begin(), lastOpenNodeList.end(), currentOpenNodeList.begin(), currentOpenNodeList.end(), toCloseNodeList.begin());
 		toCloseNodeList.resize(it - toCloseNodeList.begin());
 
-		// close nodes
-		for (auto nodetoClose : toCloseNodeList)
+		// interrupt nodes
+		for (auto nodeToInterruptId : toCloseNodeList)
 		{
-			actionManager.getActionById(nodetoClose)->closeInner(tick);
+			actionManager.getActionById(nodeToInterruptId)->interruptNode(tick);
 		}
 
 		// save tree memory
 		openNodeList = tick.openNodeList;
 		nodeCount = tick.nodeCount;
+	}
+
+	void BehaviorTree::interruptBehaviorTree()
+	{
+		// interrupt nodes
+		unordered_set<ActionId, ActionIdHasher> openNodeListCopy(openNodeList);
+		for (auto nodeToInterruptId : openNodeListCopy)
+		{
+			Tick tick(*this, 0.0f); // dt param will not be used, irrelevant for interrupt
+			// all open nodes (isRunning == true) should be interrupted
+			actionManager.getActionById(nodeToInterruptId)->interruptNode(tick);
+		}
+
+		// clear tree memory
+		openNodeList.clear();
+		nodeCount = 0;
 	}
 
 	bool BehaviorTree::getIsOpen(ActionId nodeId)

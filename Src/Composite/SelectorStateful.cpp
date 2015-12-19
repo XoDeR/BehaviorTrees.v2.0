@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "SelectorStateful.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -10,6 +11,16 @@ namespace Bt
 	SelectorStateful::SelectorStateful(vector<ActionId> children)
 		: Composite(children)
 	{
+	}
+
+	SelectorStateful::SelectorStateful()
+	{
+
+	}
+
+	void SelectorStateful::open(Tick& tick)
+	{
+		tick.tree.setRunningChild(actionId, 0);
 	}
 
 	Status SelectorStateful::process(Tick& tick)
@@ -34,26 +45,7 @@ namespace Bt
 		return Status::Failure;
 	}
 
-	void SelectorStateful::interrupt(Tick& tick)
-	{
-		int32_t idx = tick.tree.getRunningChild(actionId);
-
-		if (idx != -1)
-		{
-			BaseNode* node = tick.tree.actionManager.getActionById(children[idx]);
-			// CCAssert(node != nullptr)
-			node->interrupt(tick);
-		}
-
-		tick.tree.setRunningChild(actionId, -1);
-	}
-
-	void SelectorStateful::open(Tick& tick)
-	{
-		tick.tree.setRunningChild(actionId, 0);
-	}
-
-	void SelectorStateful::close(Tick& tick)
+	void SelectorStateful::exit(Tick& tick)
 	{
 		tick.tree.setRunningChild(actionId, -1);
 	}

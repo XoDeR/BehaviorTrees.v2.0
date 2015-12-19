@@ -7,7 +7,10 @@ namespace Bt
 	{
 	public:
 		Condition(std::function<bool()>&& startFunc);
-		Status process();
+		virtual ~Condition()
+		{}
+	protected:
+		Status process(Tick& tick) override;
 		std::function<bool()> startFunc;
 	};
 

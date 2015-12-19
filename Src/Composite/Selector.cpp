@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "Selector.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -7,6 +8,11 @@ namespace Bt
 {
 	Selector::Selector(vector<ActionId> children)
 		: Composite(children)
+	{
+
+	}
+
+	Selector::Selector()
 	{
 
 	}

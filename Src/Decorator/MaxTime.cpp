@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "MaxTime.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -8,6 +9,12 @@ namespace Bt
 	MaxTime::MaxTime(ActionId child, float maxDelay)
 		: Decorator(child)
 		, maxDelay(maxDelay)
+	{
+
+	}
+
+	MaxTime::MaxTime(float maxDelay)
+		: maxDelay(maxDelay)
 	{
 
 	}

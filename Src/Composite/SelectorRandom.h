@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #pragma once
 #include "Composite.h"
 
@@ -7,11 +8,14 @@ namespace Bt
 	class SelectorRandom : public Composite
 	{
 	public:
+		SelectorRandom();
 		explicit SelectorRandom(vector<ActionId> children);
+		virtual ~SelectorRandom()
+		{}
+	protected:
 		void open(Tick& tick) override;
 		Status process(Tick& tick) override;
-		void interrupt(Tick& tick) override;
-		void close(Tick& tick) override;
+		void exit(Tick& tick) override;
 	};
 
 } // namespace Bt

@@ -10,5 +10,6 @@ namespace Bt
 			: BaseData(NodeType::RepeatUntilSuccess)
 		{}
 		NodeId innerAction;
+		int32_t maxLoop = -1;
 	};
 } // namespace Bt

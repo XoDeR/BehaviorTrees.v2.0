@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "RepeatUntilFailure.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -8,6 +9,12 @@ namespace Bt
 	RepeatUntilFailure::RepeatUntilFailure(ActionId child, int32_t maxLoop /*= -1*/)
 		: Decorator(child)
 		, maxLoop(maxLoop)
+	{
+
+	}
+
+	RepeatUntilFailure::RepeatUntilFailure(int32_t maxLoop /*= -1*/)
+		: maxLoop(maxLoop)
 	{
 
 	}
@@ -39,10 +46,4 @@ namespace Bt
 		}
 		return status;
 	}
-
-	void RepeatUntilFailure::interrupt(Tick& tick)
-	{
-
-	}
-
 } // namespace Bt

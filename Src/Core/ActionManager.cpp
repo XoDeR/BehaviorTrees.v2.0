@@ -20,11 +20,25 @@
 #include "SelectorStateful.h"
 #include "SelectorRandom.h"
 
+#include "BaseData.h"
+#include "World.h"
+#include "UnitFnRegistry.h"
+
+#include "FailerWhenEventData.h"
+#include "WaitData.h"
+#include "LimiterData.h"
+#include "MaxTimeData.h"
+#include "RepeaterData.h"
+#include "RepeatUntilFailureData.h"
+#include "RepeatUntilSuccessData.h"
+
 namespace Bt
 {
 	const ActionId ActionManager::invalidActionId = ActionId();
 
-	ActionManager::ActionManager()
+	ActionManager::ActionManager(World& world, Entity e)
+		: world(world)
+		, e(e)
 	{
 
 	}
@@ -136,7 +150,7 @@ namespace Bt
 		auto it = actionIdMap.find(actionId);
 		if (it != actionIdMap.end())
 		{
-			result = it->second;
+			result = it->second.get();
 		}
 		return result;
 	}
@@ -144,153 +158,378 @@ namespace Bt
 	ActionId ActionManager::createActionAtomic(std::function<void()>&& startFunc)
 	{
 		ActionId actionId = createActionId();
-		ActionAtomic* actionAtomic = new ActionAtomic(std::move(startFunc));
-		actionIdMap[actionId] = actionAtomic;
+		unique_ptr<ActionAtomic> actionAtomic(new ActionAtomic(std::move(startFunc)));
+		actionIdMap[actionId] = std::move(actionAtomic);
 		return actionId;
 	}
 
 	ActionId ActionManager::createCondition(std::function<bool()>&& startFunc)
 	{
 		ActionId actionId = createActionId();
-		Condition* condition = new Condition(std::move(startFunc));
-		actionIdMap[actionId] = condition;
+		unique_ptr<Condition> condition(new Condition(std::move(startFunc)));
+		actionIdMap[actionId] = std::move(condition);
 		return actionId;
 	}
 
 	ActionId ActionManager::createActionTimed(std::function<void()>&& startFunc, std::function<void()>&& interruptFunc)
 	{
 		ActionId actionId = createActionId();
-		ActionTimed* actionTimed = new ActionTimed(std::move(startFunc), std::move(interruptFunc));
-		actionIdMap[actionId] = actionTimed;
+		unique_ptr<ActionTimed> actionTimed(new ActionTimed(std::move(startFunc), std::move(interruptFunc)));
+		actionIdMap[actionId] = std::move(actionTimed);
+		return actionId;
+	}
+
+	ActionId ActionManager::createActionTimed()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<ActionTimed> actionTimed(new ActionTimed());
+		actionIdMap[actionId] = std::move(actionTimed);
 		return actionId;
 	}
 
 	ActionId ActionManager::createFailer()
 	{
 		ActionId actionId = createActionId();
-		Failer* failer = new Failer();
-		actionIdMap[actionId] = failer;
+		unique_ptr<Failer> failer(new Failer());
+		actionIdMap[actionId] = std::move(failer);
 		return actionId;
 	}
 
 	ActionId ActionManager::createFailerWhenEvent(EventType eventToFailWith)
 	{
 		ActionId actionId = createActionId();
-		FailerWhenEvent* failerWhenEvent = new FailerWhenEvent(eventToFailWith);
-		actionIdMap[actionId] = failerWhenEvent;
+		unique_ptr<FailerWhenEvent> failerWhenEvent(new FailerWhenEvent(eventToFailWith));
+		actionIdMap[actionId] = std::move(failerWhenEvent);
 		return actionId;
 	}
 
 	ActionId ActionManager::createRunner()
 	{
 		ActionId actionId = createActionId();
-		Runner* runner = new Runner();
-		actionIdMap[actionId] = runner;
+		unique_ptr<Runner> runner(new Runner());
+		actionIdMap[actionId] = std::move(runner);
 		return actionId;
 	}
 
 	ActionId ActionManager::createSucceeder()
 	{
 		ActionId actionId = createActionId();
-		Succeeder* succeeder = new Succeeder();
-		actionIdMap[actionId] = succeeder;
+		unique_ptr<Succeeder> succeeder(new Succeeder());
+		actionIdMap[actionId] = std::move(succeeder);
 		return actionId;
 	}
 
 	ActionId ActionManager::createWait(float delay)
 	{
 		ActionId actionId = createActionId();
-		Wait* wait = new Wait(delay);
-		actionIdMap[actionId] = wait;
+		unique_ptr<Wait> wait(new Wait(delay));
+		actionIdMap[actionId] = std::move(wait);
 		return actionId;
 	}
 
 	ActionId ActionManager::createInverter(ActionId innerAction)
 	{
 		ActionId actionId = createActionId();
-		Inverter* inverter = new Inverter(innerAction);
-		actionIdMap[actionId] = inverter;
+		unique_ptr<Inverter> inverter(new Inverter(innerAction));
+		actionIdMap[actionId] = std::move(inverter);
+		return actionId;
+	}
+
+	ActionId ActionManager::createInverter()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<Inverter> inverter(new Inverter());
+		actionIdMap[actionId] = std::move(inverter);
 		return actionId;
 	}
 
 	ActionId ActionManager::createLimiter(ActionId innerAction, int32_t maxLoop)
 	{
 		ActionId actionId = createActionId();
-		Limiter* limiter = new Limiter(innerAction, maxLoop);
-		actionIdMap[actionId] = limiter;
+		unique_ptr<Limiter> limiter(new Limiter(innerAction, maxLoop));
+		actionIdMap[actionId] = std::move(limiter);
+		return actionId;
+	}
+
+	ActionId ActionManager::createLimiter(int32_t maxLoop)
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<Limiter> limiter(new Limiter(maxLoop));
+		actionIdMap[actionId] = std::move(limiter);
 		return actionId;
 	}
 
 	ActionId ActionManager::createMaxTime(ActionId innerAction, float maxDelay)
 	{
 		ActionId actionId = createActionId();
-		MaxTime* maxTime = new MaxTime(innerAction, maxDelay);
-		actionIdMap[actionId] = maxTime;
+		unique_ptr<MaxTime> maxTime(new MaxTime(innerAction, maxDelay));
+		actionIdMap[actionId] = std::move(maxTime);
+		return actionId;
+	}
+
+	ActionId ActionManager::createMaxTime(float maxDelay)
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<MaxTime> maxTime(new MaxTime(maxDelay));
+		actionIdMap[actionId] = std::move(maxTime);
 		return actionId;
 	}
 
 	ActionId ActionManager::createRepeater(ActionId innerAction, int32_t maxLoop /*= -1*/)
 	{
 		ActionId actionId = createActionId();
-		Repeater* repeater = new Repeater(innerAction, maxLoop);
-		actionIdMap[actionId] = repeater;
+		unique_ptr<Repeater> repeater(new Repeater(innerAction, maxLoop));
+		actionIdMap[actionId] = std::move(repeater);
+		return actionId;
+	}
+
+	ActionId ActionManager::createRepeater(int32_t maxLoop /*= -1*/)
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<Repeater> repeater(new Repeater(maxLoop));
+		actionIdMap[actionId] = std::move(repeater);
 		return actionId;
 	}
 
 	ActionId ActionManager::createRepeatUntilFailure(ActionId innerAction, int32_t maxLoop /*= -1*/)
 	{
 		ActionId actionId = createActionId();
-		RepeatUntilFailure* repeatUntilFailure = new RepeatUntilFailure(innerAction, maxLoop);
-		actionIdMap[actionId] = repeatUntilFailure;
+		unique_ptr<RepeatUntilFailure> repeatUntilFailure(new RepeatUntilFailure(innerAction, maxLoop));
+		actionIdMap[actionId] = std::move(repeatUntilFailure);
+		return actionId;
+	}
+
+	ActionId ActionManager::createRepeatUntilFailure(int32_t maxLoop /*= -1*/)
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<RepeatUntilFailure> repeatUntilFailure(new RepeatUntilFailure(maxLoop));
+		actionIdMap[actionId] = std::move(repeatUntilFailure);
 		return actionId;
 	}
 
 	ActionId ActionManager::createRepeatUntilSuccess(ActionId innerAction, int32_t maxLoop /*= -1*/)
 	{
 		ActionId actionId = createActionId();
-		RepeatUntilSuccess* repeatUntilSuccess = new RepeatUntilSuccess(innerAction, maxLoop);
-		actionIdMap[actionId] = repeatUntilSuccess;
+		unique_ptr<RepeatUntilSuccess> repeatUntilSuccess(new RepeatUntilSuccess(innerAction, maxLoop));
+		actionIdMap[actionId] = std::move(repeatUntilSuccess);
+		return actionId;
+	}
+
+	ActionId ActionManager::createRepeatUntilSuccess(int32_t maxLoop /*= -1*/)
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<RepeatUntilSuccess> repeatUntilSuccess(new RepeatUntilSuccess(maxLoop));
+		actionIdMap[actionId] = std::move(repeatUntilSuccess);
 		return actionId;
 	}
 
 	ActionId ActionManager::createSequence(vector<ActionId> actionList)
 	{
 		ActionId actionId = createActionId();
-		Sequence* sequence = new Sequence(actionList);
-		actionIdMap[actionId] = sequence;
+		unique_ptr<Sequence> sequence(new Sequence(actionList));
+		actionIdMap[actionId] = std::move(sequence);
+		return actionId;
+	}
+
+	ActionId ActionManager::createSequence()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<Sequence> sequence(new Sequence());
+		actionIdMap[actionId] = std::move(sequence);
 		return actionId;
 	}
 
 	ActionId ActionManager::createSelector(vector<ActionId> actionList)
 	{
 		ActionId actionId = createActionId();
-		Selector* selector = new Selector(actionList);
-		actionIdMap[actionId] = selector;
+		unique_ptr<Selector> selector(new Selector(actionList));
+		actionIdMap[actionId] = std::move(selector);
+		return actionId;
+	}
+
+	ActionId ActionManager::createSelector()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<Selector> selector(new Selector());
+		actionIdMap[actionId] = std::move(selector);
 		return actionId;
 	}
 
 	ActionId ActionManager::createSequenceStateful(vector<ActionId> actionList)
 	{
 		ActionId actionId = createActionId();
-		SequenceStateful* sequenceStateful = new SequenceStateful(actionList);
-		actionIdMap[actionId] = sequenceStateful;
+		unique_ptr<SequenceStateful> sequenceStateful(new SequenceStateful(actionList));
+		actionIdMap[actionId] = std::move(sequenceStateful);
+		return actionId;
+	}
+
+	ActionId ActionManager::createSequenceStateful()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<SequenceStateful> sequenceStateful(new SequenceStateful());
+		actionIdMap[actionId] = std::move(sequenceStateful);
 		return actionId;
 	}
 
 	ActionId ActionManager::createSelectorStateful(vector<ActionId> actionList)
 	{
 		ActionId actionId = createActionId();
-		SelectorStateful* selectorStateful = new SelectorStateful(actionList);
-		actionIdMap[actionId] = selectorStateful;
+		unique_ptr<SelectorStateful> selectorStateful(new SelectorStateful(actionList));
+		actionIdMap[actionId] = std::move(selectorStateful);
+		return actionId;
+	}
+
+	ActionId ActionManager::createSelectorStateful()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<SelectorStateful> selectorStateful(new SelectorStateful());
+		actionIdMap[actionId] = std::move(selectorStateful);
 		return actionId;
 	}
 
 	Bt::ActionId ActionManager::createSelectorRandom(vector<ActionId> actionList)
 	{
 		ActionId actionId = createActionId();
-		SelectorRandom* selectorRandom = new SelectorRandom(actionList);
-		actionIdMap[actionId] = selectorRandom;
+		unique_ptr<SelectorRandom> selectorRandom(new SelectorRandom(actionList));
+		actionIdMap[actionId] = std::move(selectorRandom);
 		return actionId;
+	}
+
+	Bt::ActionId ActionManager::createSelectorRandom()
+	{
+		ActionId actionId = createActionId();
+		unique_ptr<SelectorRandom> selectorRandom(new SelectorRandom());
+		actionIdMap[actionId] = std::move(selectorRandom);
+		return actionId;
+	}
+
+	Bt::ActionId ActionManager::createActionWithData(const Bt::BaseData& baseData)
+	{
+		using namespace Bt;
+
+		ActionId result;
+
+		switch (baseData.nodeType)
+		{
+		case NodeType::ActionAtomic:
+		{
+			StringId64 stringId(baseData.name.c_str());
+			result = createActionAtomic(std::move(UnitFnRegistry::getActionAtomicFunction(world, e, stringId)));
+		}
+		break;
+		case NodeType::Condition:
+		{
+			StringId64 stringId(baseData.name.c_str());
+			result = createCondition(std::move(UnitFnRegistry::getConditionFunction(world, e, stringId)));
+		}
+		break;
+		case NodeType::ActionTimed:
+		{
+			result = createActionTimed();
+			ActionTimed* actionTimed = static_cast<ActionTimed*>(getActionById(result));
+			std::function<void()>* onFinished = actionTimed->getOnFinishedCallback();
+			StringId64 stringId(baseData.name.c_str());
+			actionTimed->setStartFunction(std::move(UnitFnRegistry::getActionTimedStartFunction(world, e, stringId, *onFinished)));
+			actionTimed->setInterruptFunction(std::move(UnitFnRegistry::getActionTimedInterruptFunction(world, e, stringId)));
+		}
+		break;
+		case NodeType::Failer:
+		{
+			result = createFailer();
+		}
+		break;
+		case NodeType::FailerWhenEvent:
+		{
+			const FailerWhenEventData* failerWhenEventData = static_cast<const FailerWhenEventData*>(&baseData);
+			// event support not implemented yet
+			// eventToFailWith = getEventTypeFromString(failerWhenEventData->eventStr);
+			EventType eventToFailWith = EventType::None;
+			result = createFailerWhenEvent(eventToFailWith);
+		}
+		break;
+		case NodeType::Runner:
+		{
+			result = createRunner();
+		}
+		break;
+		case NodeType::Succeeder:
+		{
+			result = createSucceeder();
+		}
+		break;
+		case NodeType::Wait:
+		{
+			const WaitData* waitData = static_cast<const WaitData*>(&baseData);
+			result = createWait(waitData->delay);
+		}
+		break;
+		case NodeType::Inverter:
+		{
+			result = createInverter();
+		}
+		break;
+		case NodeType::Limiter:
+		{
+			const LimiterData* limiterData = static_cast<const LimiterData*>(&baseData);
+			result = createLimiter(limiterData->maxLoop);
+		}
+		break;
+		case NodeType::MaxTime:
+		{
+			const MaxTimeData* maxTimeData = static_cast<const MaxTimeData*>(&baseData);
+			result = createMaxTime(maxTimeData->maxDelay);
+		}
+		break;
+		case NodeType::Repeater:
+		{
+			const RepeaterData* repeaterData = static_cast<const RepeaterData*>(&baseData);
+			result = createRepeater(repeaterData->maxLoop);
+		}
+		break;
+		case NodeType::RepeatUntilFailure:
+		{
+			const RepeatUntilFailureData* repeatUntilFailureData = static_cast<const RepeatUntilFailureData*>(&baseData);
+			result = createRepeatUntilFailure(repeatUntilFailureData->maxLoop);
+		}
+		break;
+		case NodeType::RepeatUntilSuccess:
+		{
+			const RepeatUntilSuccessData* repeatUntilSuccessData = static_cast<const RepeatUntilSuccessData*>(&baseData);
+			result = createRepeatUntilSuccess(repeatUntilSuccessData->maxLoop);
+		}
+		break;
+		case NodeType::Selector:
+		{
+			result = createSelector();
+		}
+		break;
+		case NodeType::SelectorStateful:
+		{
+			result = createSelectorStateful();
+		}
+		break;
+		case NodeType::SelectorRandom:
+		{
+			result = createSelectorRandom();
+		}
+		break;
+		case NodeType::Sequence:
+		{
+			result = createSequence();
+		}
+		break;
+		case NodeType::SequenceStateful:
+		{
+			result = createSequenceStateful();
+		}
+		break;
+		default:
+		{
+			CCAssert(false, "");
+		}
+		}
+
+		return result;
 	}
 
 } // namespace Bt

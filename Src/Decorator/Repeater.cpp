@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "Repeater.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -8,6 +9,12 @@ namespace Bt
 	Repeater::Repeater(ActionId child, int32_t maxLoop /*= -1*/)
 		: Decorator(child)
 		, maxLoop(maxLoop)
+	{
+
+	}
+
+	Repeater::Repeater(int32_t maxLoop /*= -1*/)
+		: maxLoop(maxLoop)
 	{
 
 	}
@@ -39,10 +46,4 @@ namespace Bt
 		tick.tree.setIterCount(actionId, i);
 		return status;
 	}
-
-	void Repeater::interrupt(Tick& tick)
-	{
-
-	}
-
 } // namespace Bt

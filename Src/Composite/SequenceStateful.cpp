@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "SequenceStateful.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -11,6 +12,11 @@ namespace Bt
 
 	}
 
+	SequenceStateful::SequenceStateful()
+	{
+
+	}
+
 	void SequenceStateful::open(Tick& tick)
 	{
 		tick.tree.setRunningChild(actionId, 0);
@@ -18,6 +24,8 @@ namespace Bt
 
 	Status SequenceStateful::process(Tick& tick)
 	{
+		Status result =  Status::Success;
+
 		size_t idx = tick.tree.getRunningChild(actionId);
 
 		for (size_t i = idx; i < children.size(); ++i)
@@ -31,19 +39,16 @@ namespace Bt
 				{
 					tick.tree.setRunningChild(actionId, i);
 				}
-				return status;
+				break;
 			}
 		}
 
-		return Status::Success;
+		return result;
 	}
 
-	void SequenceStateful::interrupt(Tick& tick)
+	void SequenceStateful::exit(Tick& tick)
 	{
-		size_t idx = tick.tree.getRunningChild(actionId);
-		// CCAssert(idx != -1, "");
-		BaseNode* node = tick.tree.actionManager.getActionById(children[idx]);
-		node->interrupt(tick);
+		tick.tree.setRunningChild(actionId, -1);
 	}
 
 } // namespace Bt

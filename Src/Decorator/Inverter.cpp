@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "Inverter.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -9,6 +10,10 @@ namespace Bt
 		: Decorator(child)
 	{
 
+	}
+
+	Inverter::Inverter()
+	{
 	}
 
 	Status Inverter::process(Tick& tick)

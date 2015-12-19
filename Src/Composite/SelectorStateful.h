@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #pragma once
 #include "Composite.h"
 
@@ -10,10 +11,13 @@ namespace Bt
 	class SelectorStateful : public Composite
 	{
 	public:
-		SelectorStateful(vector<ActionId> children);
+		SelectorStateful();
+		explicit SelectorStateful(vector<ActionId> children);
+		virtual ~SelectorStateful()
+		{}
+	protected:
 		void open(Tick& tick) override;
 		Status process(Tick& tick) override;
-		void interrupt(Tick& tick) override;
-		void close(Tick& tick) override;
+		void exit(Tick& tick) override;
 	};
 } // namespace Bt

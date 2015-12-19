@@ -9,7 +9,7 @@ namespace Bt
 
 	}
 
-	Status Condition::process()
+	Status Condition::process(Tick& tick)
 	{
 		Status result = Status::Failure;
 		bool cond = startFunc();

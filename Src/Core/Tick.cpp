@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "Tick.h"
 #include "BehaviorTree.h"
 #include "BaseNode.h"

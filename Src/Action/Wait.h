@@ -1,8 +1,10 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #pragma once
 #include "Action.h"
 
 namespace Bt
 {
+	// timed
 	class Wait : public Action
 	{
 	public:

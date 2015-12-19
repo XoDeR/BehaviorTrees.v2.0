@@ -11,7 +11,9 @@ namespace Bt
 		explicit ActionAtomic(std::function<void()>&& startFunc);
 		virtual ~ActionAtomic()
 		{}
-		Status process();
+	protected:
+		Status process(Tick& tick) override;
+
 		std::function<void()> startFunc;
 	};
 

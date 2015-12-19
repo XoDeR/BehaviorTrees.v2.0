@@ -9,5 +9,6 @@ namespace Bt
 		LimiterData()
 			: BaseData(NodeType::Limiter)
 		{}
+		int32_t maxLoop = 0;
 	};
 } // namespace Bt

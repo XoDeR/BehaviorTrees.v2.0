@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "Sequence.h"
 #include "Tick.h"
 #include "BehaviorTree.h"
@@ -7,6 +8,11 @@ namespace Bt
 {
 	Sequence::Sequence(vector<ActionId> children)
 		: Composite(children)
+	{
+
+	}
+
+	Sequence::Sequence()
 	{
 
 	}
@@ -23,11 +29,6 @@ namespace Bt
 			}
 		}
 		return Status::Success;
-	}
-
-	void Sequence::interrupt(Tick& tick)
-	{
-		// todo
 	}
 
 } // namespace Bt

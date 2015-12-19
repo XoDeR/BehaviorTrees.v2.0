@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #pragma once
 
 #include "BtCommon.h"
@@ -11,7 +12,8 @@ namespace Bt
 	{
 	public:
 		explicit BehaviorTree(ActionManager& actionManager);
-		void process(float dt);
+		void processBehaviorTree(float dt);
+		void interruptBehaviorTree();
 		bool getIsOpen(ActionId nodeId);
 		void setIsOpen(ActionId nodeId, bool isOpen);
 		int32_t getIterCount(ActionId nodeId);

@@ -1,3 +1,4 @@
+// Copyright (c) 2015 Volodymyr Syvochka
 #include "ActionAtomic.h"
 
 namespace Bt
@@ -7,7 +8,7 @@ namespace Bt
 	{
 	}
 
-	Status ActionAtomic::process()
+	Status ActionAtomic::process(Tick& tick)
 	{
 		startFunc();
 		return Status::Success;
